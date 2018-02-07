@@ -16,9 +16,13 @@ The application deployment is done through a tomcat-deployment role, which takes
 - Stop tomcat
 - Download the war file from an HTTP repository (in this case, locally)
 - Startup tomcat
+
+##### post-tasks:
+- Register the node again to the ELB.
+
 ### Note:-
 - Configure cred and region using aws configure or .boto
 - use project or env tag name applied over all instances below an ELB. 
 - Edit Serial as per reqiurement and no. of instances inder an ELB.
-- Implement some sort of wait / app check, as when tomcat startups it ussually - - takes some time before the application is up and running
+- Implement some sort of wait / app check, as when tomcat startups it ussually,  takes some time before the application is up and running
 - User and password to get the application war should be optional
