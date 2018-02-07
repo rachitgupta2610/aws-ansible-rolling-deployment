@@ -1,0 +1,42 @@
+---
+
+- hosts: tag_project_web
+  serial: 1
+  vars:
+    region: ap-southeast-1
+    ec2_elb_name: ansible-application-cluster         
+
+
+
+  pre_tasks:
+    - name: Gathering ec2 facts
+      action: ec2_metadata_facts
+    - debug: 
+        msg: "{{ ansible_ec2_instance_id }}"
+    - name: Instance De-register
+      local_action:
+         module: ec2_elb
+         region: "{{ region }}"
+         instance_id: "{{ ansible_ec2_instance_id }}"
+         ec2_elbs: "{{ ec2_elb_name }}"
+         state: absent
+
+  roles:     
+     - tomcat-deployment
+  #become: yes
+
+
+  post_tasks:
+    - name: Gathering ec2 facts
+      action: ec2_metadata_facts
+    - debug:
+        msg: "{{ ansible_ec2_instance_id }}"
+    - name: Instance register
+      local_action:
+         module: ec2_elb
+         region: "{{ region }}"
+         instance_id: "{{ ansible_ec2_instance_id }}"
+         ec2_elbs: "{{ ec2_elb_name }}"
+         state: present
+
+
