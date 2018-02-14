@@ -1,10 +1,10 @@
 ---
 
-- hosts: tag_project_web
+- hosts: tag_Name_demo_app_ec2_asg
   serial: 1
   vars:
     region: ap-southeast-1
-    ec2_elb_name: ansible-application-cluster         
+    ec2_elb_name: demoproject_app_ec2_asg_elb      
 
 
 
