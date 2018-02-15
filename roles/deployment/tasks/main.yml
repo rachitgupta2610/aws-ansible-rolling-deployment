@@ -23,7 +23,7 @@
 - name: Copy Artifact
   become: yes
   copy:
-    src: /tmp//tmp/petclinic-{{ ARTIFACT_VERSION }}.war
+    src: /tmp/petclinic-{{ ARTIFACT_VERSION }}.war
     dest: /opt/tomcat/webapps/petclinic.war
     remote_src: yes
 
