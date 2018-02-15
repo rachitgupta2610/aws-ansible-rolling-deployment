@@ -37,5 +37,5 @@
          instance_id: "{{ ansible_ec2_instance_id }}"
          ec2_elbs: "{{ ec2_elb_name }}"
          state: present
-
+      ignore_errors: yes
 
