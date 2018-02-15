@@ -5,8 +5,8 @@
 
 - name: Download latest artifact from nexus
   get_url:
-     url: http://${NEXUS_URL}/NEXUS_REPO/petclinic-${ARTIFACT_VERSION}.war
-     dest: /tmp/petclinic-${ARTIFACT_VERSION}.war
+     url: "http://{{ NEXUS_URL }}/{{ NEXUS_REPO }}/petclinic-{{ ARTIFACT_VERSION }}.war"
+     dest: /tmp/petclinic-{{ ARTIFACT_VERSION }}.war
 
 - name: Remove old artifact from tomcat
   shell: rm -rf /opt/tomcat/webapps/*
@@ -20,7 +20,7 @@
 - name: Copy Artifact
   become: yes
   copy:
-    src: /tmp//tmp/petclinic-${ARTIFACT_VERSION}.war
+    src: /tmp//tmp/petclinic-{{ ARTIFACT_VERSION }}.war
     dest: /opt/tomcat/webapps/petclinic.war
     remote_src: yes
 
