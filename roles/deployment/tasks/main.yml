@@ -1,0 +1,33 @@
+---
+
+- name: Remove old artifact from tmp
+  shell: rm -rf /tmp/petclinic*
+
+- name: Download latest artifact from nexus
+  get_url:
+     url: http://${NEXUS_URL}/NEXUS_REPO/petclinic-${ARTIFACT_VERSION}.war
+     dest: /tmp/petclinic-${ARTIFACT_VERSION}.war
+
+- name: Remove old artifact from tomcat
+  shell: rm -rf /opt/tomcat/webapps/*
+
+- name: Stop Tomcat server
+  service:
+    name: tomcat
+    state: stopped
+  become: yes
+  
+- name: Copy Artifact
+  become: yes
+  copy:
+    src: /tmp//tmp/petclinic-${ARTIFACT_VERSION}.war
+    dest: /opt/tomcat/webapps/petclinic.war
+    remote_src: yes
+
+- name: Start Tomcat Server
+  service:
+    name: tomcat
+    state: started
+  become: yes
+
+
